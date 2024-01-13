@@ -1,0 +1,51 @@
+@use '../abstract' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Inter:wght@200;300;400;600;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+$ff-primary: 'Inter', sans-serif;
+$ff-poppins: 'Poppins';
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: bold;
+}
+
+p,
+li {
+	color: $clr-dark;
+}
+
+h1 {
+	font-size: clamp(3rem, 7vw, 7rem);
+}
+
+h2 {
+	font-size: clamp(2.4rem, 7vw, 3.3rem);
+}
+
+h3 {
+	font-size: clamp(1.8rem, 7vw, 1.8rem);
+}
+
+h4 {
+	font-size: clamp(1.6rem, 7vw, 1.6rem);
+}
+
+h5 {
+	font-size: 1.4rem;
+  font-weight: normal;
+}
+
+h6 {
+	font-size: 1.2rem;
+  font-weight: normal;
+}
+
+p {
+	font-size: 1.6rem;
+	line-height: 2;
+}

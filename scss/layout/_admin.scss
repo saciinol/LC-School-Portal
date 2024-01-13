@@ -1,0 +1,712 @@
+@use '../abstract' as *;
+
+// admin-find-student
+.find-students {
+	background-color: #fff;
+	padding: 4rem 10rem 10rem 10rem;
+
+	&__searchbar {
+		text-align: center;
+		@include flex(center, center, 2rem);
+		margin-bottom: 5rem;
+
+		input {
+			width: 64.3rem;
+			height: 4.5rem;
+			background-color: $clr-light;
+			border-radius: 10px;
+			border: 1px solid #000000;
+			padding: 2rem;
+		}
+
+		a {
+			padding: 1.3rem 3rem;
+			background-color: $clr-primary;
+			border-radius: 66px;
+			color: $clr-light;
+		}
+	}
+
+	table {
+		border-collapse: collapse;
+		border: 2px solid rgb(200, 200, 200);
+		letter-spacing: 1px;
+		font-size: 1.5rem;
+		table-layout: fixed;
+		margin: 2rem 0;
+		width: 100%;
+	}
+
+	td,
+	th {
+		border: 1px solid rgb(190, 190, 190);
+		padding: 10px 20px;
+	}
+
+	th {
+		background-color: $clr-primary;
+		color: $clr-light;
+	}
+
+	td,
+	th {
+		text-align: start;
+	}
+
+	tr:nth-child(even) td {
+		background-color: rgb(250, 250, 250);
+	}
+
+	tr:nth-child(odd) td {
+		background-color: rgb(235, 235, 235);
+	}
+
+	thead th:nth-child(1) {
+		width: 5%;
+	}
+
+	thead th:nth-child(2) {
+		width: 35%;
+	}
+
+	thead th:nth-child(3) {
+		width: 43%;
+	}
+
+	thead th:nth-child(4) {
+		width: 12%;
+	}
+	thead th:nth-child(5) {
+		width: 12%;
+	}
+
+	.student-edit {
+		min-width: 8rem;
+		text-align: center;
+		padding: 0.5rem 2rem;
+		transform: 0.5s ease;
+		display: inline-block;
+		border-radius: 3px;
+		font-size: 1rem;
+
+		background-color: $clr-primary;
+		color: #fff;
+		border: solid transparent 1px;
+
+		&:hover {
+			background-color: transparent;
+			color: $clr-primary;
+			border: 1px solid $clr-primary;
+		}
+
+		&:active {
+			background-color: $clr-dark;
+			color: $clr-light;
+			border: 1px solid $clr-light;
+		}
+	}
+}
+
+// admin-edit-student
+.menu {
+	background-color: #809fff;
+	padding: 1rem 2rem 0 2rem;
+
+	&__wrapper {
+		@include flex(flex-start, flex-start, 2rem);
+
+		button {
+			@include flex(flex-start, center);
+			width: 21rem;
+			font-size: 1.6rem;
+			line-height: 3.2rem;
+			padding: 0.5rem 0 0 1.5rem;
+			border-radius: 7px 7px 0 0;
+			border: none;
+			cursor: pointer;
+		}
+
+		.viewGrades {
+			&.active {
+				background-color: #fff;
+				color: $clr-primary;
+				img {
+					filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(2330%) hue-rotate(188deg) brightness(97%)
+						contrast(93%);
+				}
+			}
+
+			&.inactive {
+				background-color: $clr-primary;
+				color: #ffffff;
+				img {
+					filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(272deg) brightness(103%)
+						contrast(103%);
+				}
+			}
+		}
+
+		.viewBalance {
+			&.active {
+				background-color: #fff;
+				color: $clr-primary;
+				img {
+					filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(2330%) hue-rotate(188deg) brightness(97%)
+						contrast(93%);
+				}
+			}
+
+			&.inactive {
+				background-color: $clr-primary;
+				color: #ffffff;
+				img {
+					filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(272deg) brightness(103%)
+						contrast(103%);
+				}
+			}
+		}
+
+		.viewRegcard {
+			&.active {
+				background-color: #fff;
+				color: $clr-primary;
+				img {
+					filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(2330%) hue-rotate(188deg) brightness(97%)
+						contrast(93%);
+				}
+			}
+
+			&.inactive {
+				background-color: $clr-primary;
+				color: #ffffff;
+				img {
+					filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(272deg) brightness(103%)
+						contrast(103%);
+				}
+			}
+		}
+
+		.menu-btn {
+			&:hover,
+			&:active,
+			&:focus {
+				background-color: #fff;
+				color: $clr-primary;
+				img {
+					filter: brightness(0) saturate(100%) invert(24%) sepia(14%) saturate(2330%) hue-rotate(188deg) brightness(97%)
+						contrast(93%);
+				}
+			}
+		}
+	}
+}
+
+.content {
+	background-color: #fff;
+
+	&__searchbar {
+		text-align: center;
+		@include flex(center, center, 2rem);
+		margin-bottom: 5rem;
+
+		input {
+			width: 64.3rem;
+			height: 4.5rem;
+			background-color: $clr-light;
+			border-radius: 10px;
+			border: 1px solid #000000;
+			padding: 2rem;
+		}
+
+		a {
+			padding: 1.3rem 3rem;
+			background-color: $clr-primary;
+			border-radius: 66px;
+			color: $clr-light;
+		}
+	}
+
+	&__grades {
+		padding: 4rem 10rem 13rem 10rem;
+
+		&.active {
+			display: block;
+		}
+
+		&.inactive {
+			display: none;
+		}
+
+		&__header {
+			@include flex(center, center);
+
+			.tab-btn.active {
+				background-color: $clr-primary;
+				color: #fff;
+				border: solid transparent 1px;
+			}
+
+			.tab-btn.inactive {
+				background-color: transparent;
+				color: #000;
+				border: solid #000 1px;
+			}
+
+			.btn-viewsubjects {
+				min-width: 8rem;
+				text-align: center;
+				padding: 1rem 4rem;
+				transform: 0.5s ease;
+				display: inline-block;
+				border-radius: 3px;
+				font-size: 15px;
+				cursor: pointer;
+
+				background-color: transparent;
+				color: #000;
+				border: solid #000 1px;
+
+				&:hover,
+				&:active,
+				&:focus {
+					background-color: $clr-primary;
+					color: #fff;
+					border: solid transparent 1px;
+				}
+			}
+
+			.btn-addsubjects {
+				min-width: 8rem;
+				text-align: center;
+				padding: 1rem 4rem;
+				transform: 0.5s ease;
+				display: inline-block;
+				border-radius: 3px;
+				background-color: transparent;
+				color: #000;
+				border: solid #000 1px;
+				font-size: 15px;
+				cursor: pointer;
+
+				&:hover,
+				&:active,
+				&:focus {
+					background-color: $clr-primary;
+					color: #fff;
+					border: solid transparent 1px;
+				}
+			}
+		}
+
+		.view_subjects {
+			margin-top: 8rem;
+
+			&.active {
+				display: block;
+			}
+
+			&.inactive {
+				display: none;
+			}
+
+			table {
+				border-collapse: collapse;
+				border: 2px solid rgb(200, 200, 200);
+				letter-spacing: 1px;
+				font-size: 1.5rem;
+				table-layout: fixed;
+				width: 100%;
+				margin: 2rem 0;
+			}
+
+			td,
+			th {
+				border: 1px solid rgb(190, 190, 190);
+				padding: 10px 20px;
+			}
+
+			th {
+				background-color: $clr-primary;
+				color: $clr-light;
+			}
+
+			td,
+			th {
+				text-align: center;
+			}
+
+			tr:nth-child(even) td {
+				background-color: rgb(250, 250, 250);
+			}
+
+			tr:nth-child(odd) td {
+				background-color: rgb(235, 235, 235);
+			}
+
+			thead th:nth-child(1) {
+				width: 8%;
+			}
+
+			thead th:nth-child(2) {					
+				width: 35%;
+			}
+
+			thead th:nth-child(3) {			
+				width: 5%;
+			}
+
+			thead th:nth-child(4) {
+				width: 5%;
+			}
+
+			thead th:nth-child(5) {
+				width: 5%;
+			}
+
+			thead th:nth-child(6) {
+				width: 12%;
+			}
+
+			.editGrade {
+				background-color: $clr-primary;
+				color: $clr-light;
+				border: 1px solid $clr-light;
+
+				&:hover {
+					background-color: transparent;
+					color: $clr-primary;
+					border: 1px solid $clr-primary;
+				}
+
+				&:active {
+					background-color: $clr-dark;
+					color: $clr-light;
+					border: 1px solid $clr-light;
+				}
+			}
+
+			.deleteGrade {
+				background-color: #a91f1f;
+				color: $clr-light;
+				border: 1px solid $clr-light;
+
+				&:hover {
+					background-color: transparent;
+					color: #a91f1f;
+					border: 1px solid #a91f1f;
+				}
+
+				&:active {
+					background-color: $clr-dark;
+					color: $clr-light;
+					border: 1px solid $clr-light;
+				}
+			}
+		}
+
+		.add_subjects {
+			margin-top: 8rem;
+
+			&.active {
+				display: block;
+			}
+
+			&.inactive {
+				display: none;
+			}
+
+			&_wrapper {
+				@include flex(center, center, 3rem);
+				flex-direction: column;
+
+				&_input {
+					@include flex(flex-start, flex-start, 3rem);
+
+					.inputGroup {
+						margin: 0.75rem 0;
+						@include flex(flex-start, flex-start, 0rem);
+						flex-direction: column;
+
+						span {
+							color: #a91f1f;
+						}
+
+						h3 {
+							font-weight: normal;
+						}
+
+						input {
+							width: 20rem;
+							padding: 1.5rem;
+							height: 5rem;
+							font-size: 1.8rem;
+							border-radius: 5px;
+							border: 0.5px solid #000;
+							background-color: $clr-light;
+							outline: none;
+						}
+					}
+				}
+
+				.grades-edit {
+					padding: 1rem;
+					min-width: 15rem;
+					font-size: 15px;
+					cursor: pointer;
+					background-color: $clr-primary;
+						color: $clr-light;
+						border: 1px solid $clr-light;
+
+						&:hover {
+							background-color: transparent;
+							color: $clr-primary;
+							border: 1px solid $clr-primary;
+						}
+		
+						&:active {
+							background-color: $clr-dark;
+							color: $clr-light;
+							border: 1px solid $clr-light;
+						}
+				}
+			}
+		}
+
+		&__save {
+			@include flex(flex-end, flex-end, 0);
+			margin-top: 5rem;
+
+			a {
+				padding: 1.3rem 5rem;
+				background-color: $clr-primary;
+				border-radius: 66px;
+				color: $clr-light;
+				align-self: flex-end;
+			}
+		}
+	}
+
+	&__balance {
+		padding: 4rem 10rem 13rem 10rem;
+
+		&.active {
+			display: block;
+		}
+
+		&.inactive {
+			display: none;
+		}
+	}
+
+	&__regcard {
+		padding: 4rem 10rem 13rem 10rem;
+
+		&.active {
+			display: block;
+		}
+
+		&.inactive {
+			display: none;
+		}
+	}
+}
+
+.edit {
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+
+	&.open {
+		display: block;
+	}
+
+	&__wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 43rem;
+		width: 50rem;
+		background-color: $clr-light;
+		border-radius: 12px;
+		padding: 0px 50px;
+		@include flex(center, center, 3rem);
+		text-align: center;
+		flex-direction: column;
+	}
+
+	&__center {
+		@include flex(center, center, 0rem);
+		flex-direction: column;
+	}
+
+	&_input {
+		@include flex(flex-start, flex-start, 3rem);
+
+		.inputGroup {
+			margin: 0.75rem 0;
+			@include flex(flex-start, flex-start, 0rem);
+			flex-direction: column;
+
+			span {
+				color: #a91f1f;
+			}
+
+			h3 {
+				font-weight: normal;
+			}
+
+			input {
+				width: 20rem;
+				padding: 1.5rem;
+				height: 5rem;
+				font-size: 1.8rem;
+				border-radius: 5px;
+				border: 0.5px solid #000;
+				background-color: $clr-light;
+				outline: none;
+			}
+
+			.editsubject {
+				width: 43rem;
+			}
+		}
+	}
+
+	&__button {
+		@include flex(center, center, 3rem);
+
+		.btn {
+			padding: 14px 0;
+			width: 14rem;
+			cursor: pointer;
+
+			&--green {
+				border: 1px solid #4caf50;
+				color: #4caf50;
+			}
+
+			&--green:hover {
+				background-color: #4caf50;
+				color: $clr-light;
+			}
+
+			&--red {
+				border: 1px solid #a91f1f;
+				color: #a91f1f;
+			}
+
+			&--red:hover {
+				background-color: #a91f1f;
+				color: $clr-light;
+			}
+		}
+	}
+}
+
+.delete {
+	width: 100%;
+	height: 100%;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+
+	&.open {
+		display: block;
+	}
+
+	&__wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 18rem;
+		width: 35rem;
+		background-color: $clr-light;
+		border-radius: 10px;
+		padding: 0px 50px;
+		@include flex(center, center, 3rem);
+		text-align: center;
+		flex-direction: column;
+
+		h3 {
+			color: #a91f1f;
+		}
+	}
+
+	&__button {
+		@include flex(center, center, 2rem);
+
+		.btn {
+			padding: 14px 0;
+			width: 14rem;
+			cursor: pointer;
+
+			&--green {
+				border: 1px solid #4caf50;
+				color: #4caf50;
+			}
+
+			&--green:hover {
+				background-color: #4caf50;
+				color: $clr-light;
+			}
+
+			&--red {
+				border: 1px solid #a91f1f;
+				color: #a91f1f;
+			}
+
+			&--red:hover {
+				background-color: #a91f1f;
+				color: $clr-light;
+			}
+		}
+	}
+}
+
+.grades-edit {
+	min-width: 8rem;
+	text-align: center;
+	padding: 0.5rem 2rem;
+	transform: 0.5s ease;
+	display: inline-block;
+	border-radius: 3px;
+	background-color: transparent;
+	color: #000;
+	border: solid #000 1px;
+	font-size: 1rem;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $clr-primary;
+		color: #fff;
+		border: solid transparent 1px;
+	}
+}
+
+.responseMessage {
+	background-color: red;
+	color: magenta;
+}
+
+.back-btn {
+	margin-left: 8rem;
+	position: absolute;
+	left: 9.6rem;
+	top: 16rem;
+
+	i {
+		cursor: pointer;
+		color: $clr-primary;
+		font-size: 2.5rem;
+	}
+}

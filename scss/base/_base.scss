@@ -1,0 +1,35 @@
+@use '../abstract/' as *;
+@use './typography' as *;
+
+html {
+	font-size: 10px;
+	height: 100%;
+	overflow-y:scroll;
+}
+
+body {
+	font-family: $ff-primary;
+	font-size: 1.6rem;
+	line-height: 1.4;
+	color: $clr-dark;
+}
+
+a {
+	color: $clr-dark;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	display: block;
+}
+
+.container {
+	max-width: 120rem;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 1.5rem;
+}

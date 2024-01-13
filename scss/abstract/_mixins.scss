@@ -1,0 +1,36 @@
+@mixin flex($content: flex-start, $items: flex-start, $gap: 1rem) {
+	display: flex;
+	justify-content: $content;
+	align-items: $items;
+	gap: $gap;
+}
+
+@mixin grid($cols: 1, $gap: 1rem) {
+	display: grid;
+	grid-template-columns: repeat($cols, 1fr);
+	grid-gap: $gap;
+}
+
+@mixin gridCustom($val, $gap: 1rem) {
+	display: grid;
+	grid-template-columns: $val;
+	grid-gap: $gap;
+}
+
+@mixin imgCover($width: 1px, $height: 1px) {
+	height: $height;
+	width: $width;
+	object-fit: cover;
+}
+
+@mixin mediaQuery($width: 420px) {
+	@media screen and (max-width: $width) {
+		@content;
+	}
+}
+
+@mixin background($url: "1.jpg") {
+	background-image: url($url);
+	background-size: cover;
+	background-repeat: no-repeat;
+}

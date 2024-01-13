@@ -1,0 +1,48 @@
+@use '../abstract' as *;
+
+.btn {
+	min-width: 11.7rem;
+	text-align: center;
+	padding: .5rem 2rem;
+	transition: 0.5s ease;
+	display: inline-block;
+	border-radius: 6.6rem;
+
+	&--flex {
+		@include flex(center, center);
+	}
+
+	&--primary {
+		background-color: $clr-primary;
+		color: $clr-secondary;
+		&:hover {
+			background-color: darken($clr-primary, 10);
+		}
+
+		p {
+			color: $clr-secondary;
+		}
+	}
+
+	&--secondary {
+		background-color: $clr-secondary;
+		color: $clr-primary;
+		&:hover {
+			background-color: darken($clr-secondary, 10);
+		}
+
+		p {
+			color: $clr-primary;
+		}
+	}
+
+	&--transparent {
+		background-color: transparent;
+		border: solid $clr-primary 1px;
+		color: $clr-primary;
+
+		p {
+			color: $clr-dark;
+		}
+	}
+}

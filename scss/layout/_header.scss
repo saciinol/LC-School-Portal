@@ -1,0 +1,37 @@
+@use '../abstract' as *;
+
+.header {
+    padding: 1.5rem 0;
+    background-color: $clr-primary;
+
+	&__wrapper {
+		@include flex(space-between, center);
+	}
+
+	&__lc-logo {
+		@include flex(flex-start, center);
+
+        img {
+            width: 6rem;
+        }
+
+        &__lc {
+            color: $clr-secondary;
+        }
+	}
+
+	&__account-logout {
+		@include flex(flex-start, center, 5rem);
+
+		&__accountSettings {
+			@include flex(flex-start, center);
+            cursor: pointer;
+
+            color: $clr-secondary;
+
+            p {
+                color: $clr-secondary;
+            }
+		}
+	}
+}
