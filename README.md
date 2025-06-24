@@ -1,10 +1,3 @@
-
----
-
-### ✅ **2. LC-School-Portal – Student Management System**
-
-**`LC-School-Portal/README.md`**
-```markdown
 # LC School Portal 🎓
 
 A web-based student management system designed for colleges. Allows students and admins to manage profiles, grades, subjects, and enrollment processes efficiently.
