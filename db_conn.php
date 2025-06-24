@@ -2,7 +2,7 @@
 
 $sname = "localhost";
 $uname = "root";
-$password = "123";
+$password = "";
 
 $db_name = "school_portal";
 

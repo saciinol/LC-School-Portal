@@ -2,49 +2,46 @@
 session_start();
 include "db_conn.php";
 
-if (isset($_POST['uname']) && isset($_POST['password']) && isset($_POST['course']) && isset($_POST['year_level']) && isset($_POST['last_name']) && isset($_POST['first_name']) && isset($_POST['middle_name']) && isset($_POST['name_suffix']) && isset($_POST['birth_date']) && isset($_POST['age']) && isset($_POST['birth_place']) && isset($_POST['gender']) && isset($_POST['civil_status']) && isset($_POST['nationality']) && isset($_POST['religion']) && isset($_POST['home_address']) && isset($_POST['zip_code']) && isset($_POST['home_contact_no']) && isset($_POST['email']) && isset($_POST['mobile_no']) && isset($_POST['socmed_profile']) && isset($_POST['father_name']) && isset($_POST['mother_name'])) {
+if (isset($_POST['uname']) && isset($_POST['password']) && isset($_POST['course']) && isset($_POST['year_level']) && isset($_POST['last_name']) && isset($_POST['first_name']) && isset($_POST['middle_name']) && isset($_POST['name_suffix']) && isset($_POST['birth_date']) && isset($_POST['age']) && isset($_POST['birth_place']) && isset($_POST['gender']) && isset($_POST['civil_status']) && isset($_POST['nationality']) && isset($_POST['religion']) && isset($_POST['home_address']) && isset($_POST['zip_code']) && isset($_POST['home_contact_no']) && isset($_POST['email']) && isset($_POST['mobile_no']) && isset($_POST['socmed_profile']) && isset($_POST['father_name']) && isset($_POST['mother_name']) && isset($_FILES['input-file'])) {
 
-    if (isset($_POST['submit']) && isset($_FILES['input-file'])) {
 
-    
-        echo "<pre>";
-        print_r($_FILES['input-file']);
-        echo "</pre>";
-    
-        $img_name = $_FILES['input-file']['name'];
-        $img_size = $_FILES['input-file']['size'];
-        $temp_name = $_FILES['input-file']['tmp_name'];
-        $error = $_FILES['input-file']['error'];
-    
-        if ($error === 0) {
-            if ($img_size > 125000) {
-                $em = "Sorry, your file is too large.";
-                header("Location: registration.php?error=$em");
+
+
+    echo "<pre>";
+    print_r($_FILES['input-file']);
+    echo "</pre>";
+
+    $img_name = $_FILES['input-file']['name'];
+    $img_size = $_FILES['input-file']['size'];
+    $temp_name = $_FILES['input-file']['tmp_name'];
+    $error = $_FILES['input-file']['error'];
+
+    if ($error === 0) {
+        if ($img_size > 125000) {
+            $em = "Sorry, your file is too large.";
+            header("Location: registration.php?error=$em");
+        } else {
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc = strtolower($img_ex);
+
+            $allowed_exs = array("jpg", "jpeg", "png");
+
+            if (in_array($img_ex_lc, $allowed_exs)) {
+                $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
+                $img_upload_path = './images/users/' . $new_img_name;
+                move_uploaded_file($temp_name, $img_upload_path);
+
+                // INSERT INTO DATABASE
+                $sql5 = "INSERT INTO users(image_url) VALUES ('$new_img_name')";
+                mysqli_query($conn, $sql5);
             } else {
-                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                $img_ex_lc = strtolower($img_ex);
-    
-                $allowed_exs = array("jpg", "jpeg", "png");
-    
-                if (in_array($img_ex_lc, $allowed_exs)) {
-                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-                    $img_upload_path = './images/users/'.$new_img_name;
-                    move_uploaded_file($temp_name, $img_upload_path);
-    
-                    // INSERT INTO DATABASE
-                    $sql5 = "INSERT INTO users(image_url) VALUES ('$new_img_name')";
-                    mysqli_query($conn, $sql5);
-                } else {
-                    $em = "You can't upload files of this type";
-                    header("Location: registration.php?error=$em");
-                }
+                $em = "You can't upload files of this type";
+                header("Location: registration.php?error=$em");
             }
         }
-    } else {
-        header("Location: registration.php");
     }
 
-    
+
 
     function validate($data)
     {
@@ -172,4 +169,3 @@ if (isset($_POST['uname']) && isset($_POST['password']) && isset($_POST['course'
     header("Location: registration.php");
     exit();
 }
-

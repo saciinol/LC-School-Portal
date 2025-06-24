@@ -2,14 +2,18 @@
 session_start();
 
 
-
-
-
 // $user = ($_SESSION['users']);
 
 if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['image_url']) && isset($_SESSION['course']) && isset($_SESSION['year_level']) && isset($_SESSION['last_name']) && isset($_SESSION['first_name']) && isset($_SESSION['middle_name']) && isset($_SESSION['name_suffix']) && isset($_SESSION['birth_date']) && isset($_SESSION['age']) && isset($_SESSION['birth_place']) && isset($_SESSION['gender']) && isset($_SESSION['civil_status']) && isset($_SESSION['nationality']) && isset($_SESSION['religion']) && isset($_SESSION['home_address']) && isset($_SESSION['zip_code']) && isset($_SESSION['home_contact_no']) && isset($_SESSION['email']) && isset($_SESSION['mobile_no']) && isset($_SESSION['socmed_profile']) && isset($_SESSION['father_name']) && isset($_SESSION['mother_name'])) {
 	$_SESSION['table'] = 'grades';
 	$grades = include('./show-grades-home.php');
+
+	$_SESION['table'] = 'reg_card';
+	$reg_cards = include('./reg-pic.php');
+
+	$_SESION['table'] = 'enroll';
+	$enrolls = include('./enroll.php');
+
 
 ?>
 
@@ -69,11 +73,18 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 								<?php echo $_SESSION['last_name']; ?>
 								<!-- - -->
 							</h1>
-							<!-- <h1 class="Confirmation">Enrolled</h1> -->
 						</div>
+
 						<h2 class="Course"><?php echo $_SESSION['course'] ?></h2>
+
 						<h2 class="Year"><?php echo $_SESSION['year_level'] ?></h2>
-						<!-- <h2 class="Semester">FIRST SEMESTER 2023 - 2024</h2> -->
+
+						<?php foreach ($enrolls as $index => $enroll) { ?>
+
+							<h2 class="Semester"><?= $enroll['sem'] ?> <?= $enroll['school_year'] ?></h2>
+							<h1 class="status"><?= $enroll['status'] ?></h1>
+
+						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -82,21 +93,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 		<section class="features">
 			<div class="container">
 				<div class="features__wrapper">
-					<div class="features__mainButtons">
-						<a href="#" class="btn btn--secondary btn--flex">
-							<i class="fa-solid fa-house-chimney"></i>
-							<p>Home</p>
-						</a>
-						<a href="#" class="btn btn--primary btn--flex">
-							<i class="fa-solid fa-calendar-days"></i>
-							<p>Calendar</p>
-						</a>
-						<a href="#" class="btn btn--primary btn--flex">
-							<i class="fa-solid fa-triangle-exclamation"></i>
-							<p>Advisories</p>
-						</a>
-					</div>
-
 					<div class="features__mainFeatures">
 						<div class="features-center">
 							<div class="features__mainFeatures__col">
@@ -110,14 +106,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 									<p>Grades</p>
 								</a>
 
-								<a href="#" class="features__mainFeatures__feat">
+								<a class="features__mainFeatures__feat btn-feature-prerequisites">
 									<i class="fa-solid fa-puzzle-piece"></i>
 									<p>Prerequisites</p>
 								</a>
 							</div>
 
 							<div class="features__mainFeatures__col">
-								<a href="#" class="features__mainFeatures__feat">
+								<a class="features__mainFeatures__feat btn-feature-regcard">
 									<i class="fa-solid fa-address-card"></i>
 									<p>Registration Card</p>
 								</a>
@@ -207,7 +203,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 
 		<!-------------------- OVERLAY ------------------->
 
-		<div class="settings">
+		<!-- <div class="settings">
 			<div class="settings__wrapper">
 
 				<h2>Account Settings</h2>
@@ -238,34 +234,43 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 					<a class="btn settings-close">Cancel</a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="changePassword">
-			<div class="changePassword__wrapper">
+		<div class="changePassword" id="changePassword">
+			<form action="./change-p.php" method="post" class="changePassword__wrapper">
 				<h2>Change Password</h2>
 
 				<div class="changePassword__input">
+
+					<?php if (isset($_GET['error'])) { ?>
+						<p class="errorPW"><?php echo $_GET['error']; ?></p>
+					<?php } ?>
+
+					<?php if (isset($_GET['success'])) { ?>
+						<p class="successPW"><?php echo $_GET['success']; ?></p>
+					<?php } ?>
+
 					<div class="inputGroup">
-						<label for="username">Current Password:</label>
+						<label>Current Password: <span>*</span></label>
 						<input type="password" name="changePassword-current-password" class="changePassword-current-password" id="changePassword-current-password" />
 					</div>
 
 					<div class="inputGroup">
-						<label for="email">New Password:</label>
+						<label>New Password: <span>*</span></label>
 						<input type="password" name="changePassword-new-password" class="changePassword-new-password" id="changePassword-new-password" />
 					</div>
 
 					<div class="inputGroup">
-						<label for="email">Confirm New Password:</label>
+						<label>Confirm New Password: <span>*</span></label>
 						<input type="password" name="changePassword-confirmnew-password" class="changePassword-confirmnew-password" id="changePassword-confirmnew-password" />
 					</div>
 				</div>
 
 				<div class="changePassword__btn">
-					<a href="#" class="btn btn-save">Save</a>
+					<button type="submit" class="btn btn-save btnSettings">Confirm</button>
 					<a class="btn changePassword-close">Cancel</a>
 				</div>
-			</div>
+			</form>
 		</div>
 
 		<div class="logout">
@@ -295,13 +300,17 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 									<?php echo $_SESSION['first_name']; ?>
 									<?php echo $_SESSION['middle_name']; ?>
 									<?php echo $_SESSION['last_name']; ?>
-									-
 								</h1>
-								<h1 class="Confirmation">Enrolled</h1>
 							</div>
 							<h2 class="Course"><?php echo $_SESSION['course'] ?></h2>
 							<h2 class="Year"><?php echo $_SESSION['year_level'] ?></h2>
-							<h2 class="Semester">FIRST SEMESTER 2023 - 2024</h2>
+
+							<?php foreach ($enrolls as $index => $enroll) { ?>
+
+								<h2 class="Semester"><?= $enroll['sem'] ?> <?= $enroll['school_year'] ?></h2>
+								<h1 class="status"><?= $enroll['status'] ?></h1>
+
+							<?php } ?>
 						</div>
 					</div>
 
@@ -780,10 +789,106 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 			</div>
 		</div>
 
+		<div class="prerequisites">
+			<div class="prerequisites__scroll">
+				<div class="prerequisites__wrapper">
+					<a class="close-btn prerequisites-close" title="Close prerequisites">&times;</a>
+
+					<div class="prerequisites__cmb">
+						<div class="inputGroup">
+							<select id="select-course" name="course">
+								<option value="">Course</option>
+								<option value="B.S. in Accountancy">B.S. in Accountancy</option>
+								<option value="B.S. in Business Administration">B.S. in Business Administration</option>
+								<option value="B.S. in Management Accounting">B.S. in Management Accounting</option>
+								<option value="B.S. in Civil Engineering">B.S. in Civil Engineering</option>
+								<option value="B.S. in Industrial Engineering">B.S. in Industrial Engineering</option>
+								<option value="B.S. in Computer Science">B.S. in Computer Science</option>
+								<option value="B.S. in Information Technology">B.S. in Information Technology</option>
+								<option value="B.S. in Nursing">B.S. in Nursing</option>
+								<option value="B.S. in Psychology">B.S. in Psychology</option>
+								<option value="B.S. in Hospitality Management">B.S. in Hospitality Management</option>
+								<option value="B.S. in Tourism Management">B.S. in Tourism Management</option>
+								<option value="Bachelor of Arts in English Language">Bachelor of Arts in English Language</option>
+								<option value="Bachelor of Secondary Education">Bachelor of Secondary Education</option>
+								<option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+							</select>
+						</div>
+
+						<div class="inputGroup">
+							<select id="select-year-level" name="year-level">
+								<option value="">Year</option>
+								<option value="1st Year">1st Year</option>
+								<option value="2nd Year">2nd Year</option>
+								<option value="3rd Year">3rd Year</option>
+								<option value="4th Year">4th Year</option>
+							</select>
+						</div>
+
+						<div class="inputGroup">
+							<select id="select-year-level" name="semester">
+								<option value="">Semester</option>
+								<option value="1st Year">1st Year</option>
+								<option value="2nd Year">2nd Year</option>
+								<option value="3rd Year">3rd Year</option>
+								<option value="4th Year">4th Year</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="prerequisites__title">
+						<h3>THIRD YEAR</h3>
+					</div>
+
+					<div class="prerequisites__table">
+						<table id="TableYear1" class="year1 inactive">
+							<thead>
+								<tr>
+									<th>Subject Code</th>
+									<th>Subject Name</th>
+									<th>Units</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<?php foreach ($grades as $index => $grade) { ?>
+
+									<tr>
+										<td class="code"><?= $grade['code'] ?></td>
+										<td class="subject_name"><?= $grade['subject_name'] ?></td>
+										<td class="units"><?= $grade['units'] ?></td>
+									</tr>
+
+								<?php } ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="regcard">
+			<div class="regcard__scroll">
+				<div class="regcard__wrapper">
+					<a class="close-btn regcard-close" title="Close registration card">&times;</a>
+
+					<div class="regcard__title">
+						<h2>Registration Card</h2>
+					</div>
+
+					<div class="regcard__img">
+						<?php foreach ($reg_cards as $index => $reg_card) { ?>
+							<img src="./images/regcard/<?= $reg_card['reg_pic'] ?>" alt="">
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="subjects">
 			<div class="subjects__scroll">
 				<div class="subjects__wrapper">
-					<a class="close-btn subjects-close" title="Close Grades">&times;</a>
+					<a class="close-btn subjects-close" title="Close Subjects">&times;</a>
 
 					<ul class="subjects__content">
 
@@ -791,7 +896,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 
 							<li class="subjects__content__card">
 								<div class="subjects__content__card__img">
-									<img src="./images/milos.png" alt="">
+									<img src="./images/profpic/<?= $grade['prof_pic'] ?>" alt="" />
 								</div>
 
 								<div class="subjects__content__card__subjects">
@@ -931,7 +1036,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 
 		<div class="registration">
 			<div class="registration__scroll">
-				<div class="registration__wrapper">
+				<form action="./status.php" method="post" class="registration__wrapper">
 					<a class="close-btn registration-close" title="Close Registration">&times;</a>
 
 					<div class="student-info">
@@ -947,92 +1052,139 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 					<div class="registration-details">
 						<h3 class="regtail">REGISTRATION DETAILS</h3>
 
-						<div class="registration-details__row">
-							<div class="inputGroup">
-								<h3 for="register-as" class="register-label">Register as:</h3>
+						<?php foreach ($enrolls as $index => $enroll) { ?>
 
-								<select id="select-register-as" name="register-as" disabled="">
-									<option value="Old Student">Old Student</option>
-									<option value="New Student">New Student</option>
-								</select>
+							<div class="registration-details__row">
+								<div class="inputGroup">
+									<h3 for="register-as" class="register-label">Register as:</h3>
+
+									<select id="select-register-as" name="register-as" disabled="">
+										<option value="<?= $enroll['registered_as'] ?>"><?= $enroll['registered_as'] ?></option>
+									</select>
+								</div>
+
+								<div class="inputGroup">
+									<h3 for="school-year" class="register-label">School Year:</h3>
+
+									<input type="text" class="school-year" name="school-year" value="<?= $enroll['school_year'] ?>" disabled />
+
+
+								</div>
+
+								<div class="inputGroup">
+									<h3 for="sem-term" class="register-label">Semester/Term:</h3>
+
+									<input type="text" class="sem-term" name="sem-term" value="<?= $enroll['semester_term'] ?>" disabled />
+
+
+								</div>
 							</div>
 
-							<div class="inputGroup">
-								<h3 for="school-year" class="register-label">School Year:</h3>
+							<div class="registration-details__row2">
+								<div class="inputGroup">
+									<h3 for="year-level" class="register-label">Year Level:</h3>
 
-								<input type="text" class="school-year" name="school-year" value="2023-2024" disabled />
+									<select id="select-year-level" name="year-level">
+										<option value="">-Select-</option>
+										<option value="1st Year">1st Year</option>
+										<option value="2nd Year">2nd Year</option>
+										<option value="3rd Year">3rd Year</option>
+										<option value="4th Year">4th Year</option>
+									</select>
+								</div>
 
+								<div class="inputGroup">
+									<h3 for="course" class="register-label">Course:</h3>
 
+									<select id="select-course" name="course">
+										<option value="<?php echo $_SESSION['course'] ?>"><?php echo $_SESSION['course'] ?></option>
+										<option value="B.S. in Accountancy">B.S. in Accountancy</option>
+										<option value="B.S. in Business Administration">B.S. in Business Administration</option>
+										<option value="B.S. in Management Accounting">B.S. in Management Accounting</option>
+										<option value="B.S. in Civil Engineering">B.S. in Civil Engineering</option>
+										<option value="B.S. in Industrial Engineering">B.S. in Industrial Engineering</option>
+										<option value="B.S. in Computer Science">B.S. in Computer Science</option>
+										<option value="B.S. in Information Technology">B.S. in Information Technology</option>
+										<option value="B.S. in Nursing">B.S. in Nursing</option>
+										<option value="B.S. in Psychology">B.S. in Psychology</option>
+										<option value="B.S. in Hospitality Management">B.S. in Hospitality Management</option>
+										<option value="B.S. in Tourism Management">B.S. in Tourism Management</option>
+										<option value="Bachelor of Arts in English Language">Bachelor of Arts in English Language</option>
+										<option value="Bachelor of Secondary Education">Bachelor of Secondary Education</option>
+										<option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+									</select>
+								</div>
 							</div>
 
-							<div class="inputGroup">
-								<h3 for="sem-term" class="register-label">Semester/Term:</h3>
-
-								<input type="text" class="sem-term" name="sem-term" value="2" disabled />
-
-
-							</div>
-						</div>
-
-						<div class="registration-details__row2">
-							<div class="inputGroup">
-								<h3 for="year-level" class="register-label">Year Level:</h3>
-
-								<select id="select-year-level" name="year-level">
-									<option value="">-Select-</option>
-									<option value="1st Year">1st Year</option>
-									<option value="2nd Year">2nd Year</option>
-									<option value="3rd Year">3rd Year</option>
-									<option value="4th Year">4th Year</option>
-								</select>
-							</div>
-
-							<div class="inputGroup">
-								<h3 for="course" class="register-label">Course:</h3>
-
-								<select id="select-course" name="course">
-									<option value="<?php echo $_SESSION['course'] ?>"><?php echo $_SESSION['course'] ?></option>
-									<option value="B.S. in Accountancy">B.S. in Accountancy</option>
-									<option value="B.S. in Business Administration">B.S. in Business Administration</option>
-									<option value="B.S. in Management Accounting">B.S. in Management Accounting</option>
-									<option value="B.S. in Civil Engineering">B.S. in Civil Engineering</option>
-									<option value="B.S. in Industrial Engineering">B.S. in Industrial Engineering</option>
-									<option value="B.S. in Computer Science">B.S. in Computer Science</option>
-									<option value="B.S. in Information Technology">B.S. in Information Technology</option>
-									<option value="B.S. in Nursing">B.S. in Nursing</option>
-									<option value="B.S. in Psychology">B.S. in Psychology</option>
-									<option value="B.S. in Hospitality Management">B.S. in Hospitality Management</option>
-									<option value="B.S. in Tourism Management">B.S. in Tourism Management</option>
-									<option value="Bachelor of Arts in English Language">Bachelor of Arts in English Language</option>
-									<option value="Bachelor of Secondary Education">Bachelor of Secondary Education</option>
-									<option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-								</select>
-							</div>
-						</div>
+						<?php } ?>
 					</div>
 
 					<div class="registration-submit">
-						<a href="#" class="reg-submit">Submit</a>
+						<button class="reg-submit">Submit</button>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
-<!-- 
+
 		<div class="balanceInquiry">
 			<div class="balanceInquiry__scroll">
 				<div class="balanceInquiry__wrapper">
 					<a class="close-btn balanceinquiry-close" title="Close Registration">&times;</a>
 
-
 					<h2>Balance Inquiry</h2>
+
+					<table id="balinq" class="balinq">
+						<thead>
+							<tr>
+								<th colspan="2">Officially Enrolled</th>
+							</tr>
+
+							<tr>
+								<th class="bal_tab_clr">2023-2024</th>
+								<th class="bal_tab_clr">2nd Semester</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>Prelims</td>
+								<td class="texend">100,000.00</td>
+							</tr>
+
+							<tr>
+								<td>Midterms</td>
+								<td class="texend">100,000.00</td>
+							</tr>
+
+							<tr>
+								<td>Semifinals</td>
+								<td class="texend">100,000.00</td>
+							</tr>
+
+							<tr>
+								<td>Finals</td>
+								<td class="texend">100,000.00</td>
+							</tr>
+
+							<tr>
+								<td>Miscellaneous</td>
+								<td class="texend">100,000.00</td>
+							</tr>
+
+							<tr>
+								<td>Total Balance</td>
+								<td class="texend">500,000.00</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<div class="payment">
 			<div class="payment__scroll">
 				<div class="payment__wrapper">
-					<a class="close-btn payment-close" title="Close Grades">&times;</a>
+					<a class="close-btn payment-close" title="Close Payment">&times;</a>
 
 					<div class="payment__options">
 						<div class="payment__options__btn">
@@ -1107,9 +1259,28 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 							<p class="dwads">Please review to ensure that the details are correct before you proceed </p>
 
 							<div class="gcash_paybtn">
-								<button class="gcashpay">PAY PHP 1000.00</button>
+								<button class="gcashpay gsuccess">PAY PHP 1000.00</button>
 							</div>
 						</div>
+
+						<div class="gcash_success">
+							<div class="gcash_success_scroll">
+								<div class="gcash_success_wrapper">
+									<h2>Payment Successful</h2>
+
+									<div class="gcash_success_bg">
+										<div class="gcash_success_bg_check">
+											<i class="fa-solid fa-check"></i>
+										</div>
+									</div>
+
+									<div class="gcash_success_btn">
+										<button class="gcash_success_baaa">Return</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 
 					<div class="viewCreditcard inactive">
@@ -1152,10 +1323,122 @@ if (isset($_SESSION['id']) && isset($_SESSION['user_name']) && isset($_SESSION['
 						<div class="creditcard_paynowbtn">
 							<button>Pay Now</button>
 						</div>
+
+						<div class="ccard_success">
+							<div class="ccard_success_scroll">
+								<div class="ccard_success_wrapper">
+									<h2>Payment Successful</h2>
+
+									<div class="ccard_success_bg">
+										<div class="ccard_success_bg_check">
+											<i class="fa-solid fa-check"></i>
+										</div>
+									</div>
+
+									<div class="ccard_success_btn">
+										<button class="ccard_success_baaa">Return</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div class="viewBanktransfer inactive">
-						<p class="checkout">Checkout</p>
+						<div class="viewBanktransfer__flex">
+							<div class="viewBanktransfer__btransfer">
+								<h3>Bank Transfer</h3>
+
+								<p class="lnh">Please make a payment to the following bank account in the amount of the chosen package price.</p>
+
+								<p class="lnh">RCBC over-the-counter payment / Online Bank Transfer:</p>
+
+								<p>Account Name - Laguna College, Inc.</p>
+								<p>Account Number - 019100682176</p>
+								<p>Account Type - Savings Account</p>
+								<p>Bank Name - RCBC San Pablo City</p>
+								<p>Beneficiary Name - GROWTHNEXT FZC</p>
+								<p>Email - acctg.section.lc@gmail.com</p>
+							</div>
+
+							<button class="ewannnnsd">
+								<span></span>
+							</button>
+
+							<div class="viewBanktransfer__checkout">
+								<p class="checkout">Checkout</p>
+
+								<h3>Upload The Proof of Your Payment <span>*</span></h3>
+
+								<h4 class="fwnor">Ex. Bank Transfer Receipt Screenshot</h4>
+
+								<div class="viewBanktransfer__checkout__browsefile">
+									<div class="check_icon">
+										<img src="./images/cloud.png" alt="">
+									</div>
+
+									<h4 class="mg1">Choose a file or drag & drop it here</h4>
+
+									<h4 class="mg2">JPEG, PNG, PDF</h4>
+
+									<a href="" class="browsefuke">Browse File</a>
+								</div>
+
+								<div class="creditcard_input">
+									<div class="inputGroup">
+										<p>Full Name</p>
+
+										<input type="text">
+									</div>
+
+									<div class="inputGroup">
+										<p>Email Address</p>
+
+										<input type="text">
+									</div>
+
+									<div class="expicvs">
+										<div class="inputGroup">
+											<p>Year</p>
+
+											<input class="vbexp" type="text">
+										</div>
+
+										<div class="inputGroup">
+											<p>Course</p>
+
+											<input class="vbexp" type="text">
+										</div>
+									</div>
+
+									<div class="btansfer__chekkkk">
+										<button class="dawcsac"><i class="btanschekk fa-solid fa-check"></i><span></span></button>
+										<p>I declare that I have read and agreed with <span class="dwasdac">Terms and Conditions, Disclosure Statement &Privacy Policy</span></p>
+									</div>
+								</div>
+
+								<div class="btranster_conpay">
+									<button>Confirm Payment</button>
+								</div>
+
+								<div class="btransfer_success">
+									<div class="btransfer_success_scroll">
+										<div class="btransfer_success_wrapper">
+											<h2>Payment Successful</h2>
+
+											<div class="btransfer_success_bg">
+												<div class="btransfer_success_bg_check">
+													<i class="fa-solid fa-check"></i>
+												</div>
+											</div>
+
+											<div class="btransfer_success_btn">
+												<button class="btransfer_success_baaa">Return</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

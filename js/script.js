@@ -89,6 +89,40 @@ btnThird.addEventListener('click', () => {
 
 
 
+// 	PREREQUISITES
+const btnPrerequisites = document.querySelector('.btn-feature-prerequisites');
+const overlayPrerequisites = document.querySelector('.prerequisites');
+
+btnPrerequisites.addEventListener('click', () => {
+	overlayPrerequisites.classList.toggle('open');
+
+	const close = document.querySelector('.prerequisites-close');
+	close.addEventListener('click', () => {
+		overlayPrerequisites.classList.toggle('open');
+		location.reload();
+	});
+});
+
+
+
+
+// 	REGISTRATION CARD
+const btnRegcard = document.querySelector('.btn-feature-regcard');
+const overlayRegcard = document.querySelector('.regcard');
+
+btnRegcard.addEventListener('click', () => {
+	overlayRegcard.classList.toggle('open');
+
+	const close = document.querySelector('.regcard-close');
+	close.addEventListener('click', () => {
+		overlayRegcard.classList.toggle('open');
+		location.reload();
+	});
+});
+
+
+
+
 // 	SUBJECTS
 const btnSubjects = document.querySelector('.btn-feature-subjects');
 const overlaySubjects = document.querySelector('.subjects');
@@ -123,18 +157,18 @@ btnRegistration.addEventListener('click', () => {
 
 
 // 	BALANCE INQUIRY
-// const btnbalanceinquiry = document.querySelector('.btn-feature-balanceinquiry');
-// const overlaybalanceinquiry = document.querySelector('.balanceInquiry');
+const btnbalanceinquiry = document.querySelector('.btn-feature-balanceinquiry');
+const overlaybalanceinquiry = document.querySelector('.balanceInquiry');
 
-// btnbalanceinquiry.addEventListener('click', () => {
-// 	overlaybalanceinquiry.classList.toggle('open');
+btnbalanceinquiry.addEventListener('click', () => {
+	overlaybalanceinquiry.classList.toggle('open');
 
-// 	const close = document.querySelector('.balanceinquiry-close');
-// 	close.addEventListener('click', () => {
-// 		overlaybalanceinquiry.classList.toggle('open');
-// 		location.reload();
-// 	});
-// });
+	const close = document.querySelector('.balanceinquiry-close');
+	close.addEventListener('click', () => {
+		overlaybalanceinquiry.classList.toggle('open');
+		location.reload();
+	});
+});
 
 
 
@@ -314,6 +348,63 @@ btnGcashreturn.addEventListener('click', () => {
 });
 
 
+
+
+// PAYMENNT GCASH SUCCESS
+const btngcashpay = document.querySelector('.gsuccess');
+const overlayGcashSuccess = document.querySelector('.gcash_success');
+
+btngcashpay.addEventListener('click', () => {
+	overlayGcashSuccess.classList.toggle('open');
+
+	const close = document.querySelector('.ccard_success_baaa');
+	close.addEventListener('click', () => {
+		overlayGcashSuccess.classList.toggle('open');
+		location.reload();
+	});
+}); 
+
+
+
+
+
+// PAYMENNT CREDIT CARD SUCCESS
+const btnccardpay = document.querySelector('.creditcard_paynowbtn');
+const overlayCcardSuccess = document.querySelector('.ccard_success');
+
+btnccardpay.addEventListener('click', () => {
+	overlayCcardSuccess.classList.toggle('open');
+
+	const close = document.querySelector('.ccard_success_baaa');
+	close.addEventListener('click', () => {
+		overlayCcardSuccess.classList.toggle('open');
+		location.reload();
+	});
+}); 
+
+
+
+
+// PAYMENNT BANK TRANSFER SUCCESS
+const btnbtransferpay = document.querySelector('.btranster_conpay');
+const overlaybtransferSuccess = document.querySelector('.btransfer_success');
+
+btnbtransferpay.addEventListener('click', () => {
+	overlaybtransferSuccess.classList.toggle('open');
+
+	const close = document.querySelector('.btransfer_success_baaa');
+	close.addEventListener('click', () => {
+		overlaybtransferSuccess.classList.toggle('open');
+		location.reload();
+	});
+}); 
+
+
+
+
+
+
+// PAYMENT CREDIT CARD CHECK
 const checkremember = document.querySelector('.checkremeber');
 const checkkkk = document.querySelector('.checkkkk');
 
@@ -323,25 +414,36 @@ checkremember.addEventListener('click', () => {
 
 
 
+// PAYMENT BANK TRANSFER CHECK
+const btncheck = document.querySelector('.dawcsac');
+const btransfercheck = document.querySelector('.btanschekk');
+
+btncheck.addEventListener('click', () => {
+	btransfercheck.classList.toggle('open');
+})
+
+
+
+
 // 	SETTTINGS
-const btnSettings = document.querySelector('.btnSettings');
-const overlaySettings = document.querySelector('.settings');
+// const btnSettings = document.querySelector('.btnSettings');
+// const overlaySettings = document.querySelector('.settings');
 
-btnSettings.addEventListener('click', () => {
-	overlaySettings.classList.toggle('open');
+// btnSettings.addEventListener('click', () => {
+// 	overlaySettings.classList.toggle('open');
 
-	const close = document.querySelector('.settings-close');
-	close.addEventListener('click', () => {
-		overlaySettings.classList.toggle('open');
-		location.reload();
-	});
-});
+// 	const close = document.querySelector('.settings-close');
+// 	close.addEventListener('click', () => {
+// 		overlaySettings.classList.toggle('open');
+// 		location.reload();
+// 	});
+// });
 
 
 
 
 // 	CHANGE PASSWORD
-const btnChangePW = document.querySelector('.btn-changePW');
+const btnChangePW = document.querySelector('.btnSettings');
 const overlayChangePW = document.querySelector('.changePassword');
 
 btnChangePW.addEventListener('click', () => {
@@ -353,6 +455,12 @@ btnChangePW.addEventListener('click', () => {
 		location.reload();
 	});
 });
+
+// const close = document.querySelector('.changePassword-close');
+// close.addEventListener('click', () => {
+// 	document.getElementById('.changePassword').style.display = 'none';
+// 	location.reload();
+// });
 
 
 
